@@ -1,5 +1,6 @@
 from collections import deque
 
+# deque를 사용하여 실행 시간 줄임
 prices = [1,2,3,2,3]
 def solution(prices):
     prices = deque(prices)
