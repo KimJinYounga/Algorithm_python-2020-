@@ -17,7 +17,6 @@ def solution(priorities, location):
             if current_doc < i[0]:
                 printer.append(printer.pop(0))
                 break
-        # 에러남 : priorities가 모두 같을 경우.
 
         if index == max(printer)[1]:
             running = False
