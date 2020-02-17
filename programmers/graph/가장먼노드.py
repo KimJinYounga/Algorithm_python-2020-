@@ -1,29 +1,36 @@
+from collections import defaultdict
+
 n = 6
 edge = [[3, 6], [4, 3], [3, 2], [1, 3], [1, 2], [2, 4], [5, 2]]
 
-
 def solution(n, edge):
-    graph = [[] for _ in range(n + 1)]
-    distances = [0 for _ in range(n)]
-    is_visit = [False for _ in range(n)]
-    queue = [0]
-    is_visit[0] = True
 
-    for (a, b) in edge:
-        graph[a - 1].append(b - 1)
-        graph[b - 1].append(a - 1)
+    answer = 0
+    depth = {i:0 for i in range(1, n+1)}
+    visited = {i:False for i in range(1, n+1)}
+    adj = defaultdict(list)
 
-    while queue:
-        i = queue.pop(0)
-        for j in graph[i]:
-            if is_visit[j] == False:
-                is_visit[j] = True
-                queue.append(j)
-                distances[j] = distances[i] + 1
-
-    distances.sort(reverse=True)
-    answer = distances.count(distances[0])
-
+    # adj2['one'] = '1'
+    for i in edge:
+        adj[i[0]].append(i[1])
+        adj[i[1]].append(i[0])
+    qlist = adj[1]
+    floor = 1
+    while qlist:
+        len_adj = len(qlist)
+        for i in range(len_adj):
+            node = qlist.pop(0)
+            if visited[node] ==False:
+                visited[node] =True
+                depth[node] = floor
+                qlist+=adj[node]
+        floor+=1
+    del depth[1]
+    maxValue = max(depth.values())
+    answer = list(depth.values()).count(maxValue)
+    # for i in depth.values():
+    #     if i == maxValue:
+    #         answer+=1
     return answer
 
 print(solution(n, edge))
