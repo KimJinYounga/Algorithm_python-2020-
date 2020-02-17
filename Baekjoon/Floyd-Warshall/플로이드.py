@@ -14,6 +14,7 @@ for i in range(1, n+1):
             else:
                 bus_cost[j][k] = min(bus_cost[j][i]+bus_cost[i][k], bus_cost[j][k])
 
+
 for i in bus_cost[1:]:
     for j in i[1:]:
         if j==100001:
